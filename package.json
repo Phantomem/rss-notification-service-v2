@@ -1,0 +1,26 @@
+{
+  "name": "rss-notification-service-v2",
+  "version": "1.0.0",
+  "description": "service for handle notifications from rss channels",
+  "main": "app.ts",
+  "scripts": {
+    "start": "ts-node src/app.ts",
+    "build": "tsc",
+    "start:prod": "node build/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Phantomem/rss-notification-service-v2.git"
+  },
+  "author": "phantomem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Phantomem/rss-notification-service-v2/issues"
+  },
+  "homepage": "https://github.com/Phantomem/rss-notification-service-v2#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
