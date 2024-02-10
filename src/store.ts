@@ -18,14 +18,40 @@ export const getClient = async (): Promise<sheets_v4.Sheets> => {
   });
 };
 
+export const parseSheet = <T>(arr: string[][]): T[] => {
+  const [nameRow, ...values] = arr;
+
+  return values.reduce((acc, next ) => {
+    const obj = next.reduce((acc2, next2, i) =>
+      ({...acc2, [nameRow[i]]: next2})
+      ,{} as T);
+    return [...acc, obj];
+  }, [] as T[])
+}
+
 // @ts-ignore
-export const getSheetCellsValues = async (sheetId, tabName, range) =>  {
+export const getSheetCellsValues = async <T>(sheetId, tabName, range): Promise<T[]> =>  {
   const client = await getClient();
   const res = await client.spreadsheets.values.get({
     spreadsheetId: sheetId,
     range: `${tabName}!${range}`,
   });
 
-  return res.data.values;
+  return parseSheet(res.data.values);
 };
 
+//@ts-ignore
+export const updateSheetCellsValues = async (sheetId, tabName, range, data): Promise<void> =>  {
+  const client = await getClient();
+  //@FIXME google.sheets not accepting provided json even if seems legit. Something not configured or wrong on lib for TS.
+  // @ts-ignore
+  await client.spreadsheets.values.update({
+    spreadsheetId: sheetId,
+    range: `${tabName}!${range}`,
+    valueInputOption: 'USER_ENTERED',
+    resource: {
+      "majorDimension": "ROWS",
+      "values": data
+    },
+  })
+}
