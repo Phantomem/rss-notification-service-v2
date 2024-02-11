@@ -71,6 +71,10 @@ To run application from build:
 $ npm run start:prod
 ```
 
+## Tests
+
+TBD
+
 ## Deployment
 
 TBD
