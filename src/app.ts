@@ -26,7 +26,6 @@ const {
       console.log(rssData);
       const newItems = findItemsAfterDate(rssData, new Date(lastDate));
       if (!newItems?.length) {
-        console.log('not found for: ', rssData);
         return lastDate;
       }
       const newLastDate = rssData.pubDate;
@@ -38,7 +37,12 @@ const {
       }));
       return newLastDate;
     }));
-    await updateSheetCellsValues(GOOGLE_SHEET_ID, GOOGLE_SHEET_TAB_NAME, 'B:B', ['lastDate', ...storeLastDates]);
+    await updateSheetCellsValues(
+      GOOGLE_SHEET_ID,
+      GOOGLE_SHEET_TAB_NAME,
+      'B:B',
+      ['lastDate', ...storeLastDates]
+    );
   } catch (err) {
     console.error(`Exception: `, err.message);
     throw err;
