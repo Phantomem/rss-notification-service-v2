@@ -26,11 +26,11 @@ Configuration part TBD.
 For blank sheet column A:1 is for link name and rest for links, column B:1 is for date name, and rest for last date from rss channel pubDate.
 Then eventually it should look like this:
 
-| link | lastDate  |
-|------|-----------|
-| rss1 | lastDate1 |
-| rss2 | lastDate2 |
-| ...  | ...       |
+|     | A        | B         |
+|-----|----------|-----------|
+| 1   | rssLink1 | lastDate1 |
+| 2   | rssLink2 | lastDate1 |
+| ... | ...      | ...       |
 
 ## Installation
 
