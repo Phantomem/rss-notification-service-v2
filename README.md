@@ -21,6 +21,17 @@ As notification provider discord bot is sending DMs to personal account.
 
 Configuration part TBD.
 
+### Google Sheet
+
+For blank sheet column A:1 is for link name and rest for links, column B:1 is for date name, and rest for last date from rss channel pubDate.
+Then eventually it should look like this:
+
+| link | lastDate  |
+|------|-----------|
+| rss1 | lastDate1 |
+| rss2 | lastDate2 |
+| ...  | ...       |
+
 ## Installation
 
 Install dependencies:
