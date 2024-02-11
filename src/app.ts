@@ -23,7 +23,6 @@ const {
     const storeLastDates = await Promise.all(rssStore.map(async (rss) => {
       const {link, lastDate} = rss;
       const rssData = await getRssData(link);
-      console.log(rssData);
       const newItems = findItemsAfterDate(rssData, new Date(lastDate));
       if (!newItems?.length) {
         return lastDate;
