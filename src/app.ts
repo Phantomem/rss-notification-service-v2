@@ -4,16 +4,15 @@ dotenv.config();
 import {getSheetCellsValues, updateSheetCellsValues} from "./store";
 import {RssStoreType} from "./types/rssStore.type";
 import {findItemsAfterDate, getRssData} from "./rss";
-import {discordNotificationService} from "./discord-notification";
+import {discordNotificationProvider} from "./discord-notification";
 
 const {
   GOOGLE_SHEET_TAB_NAME,
   GOOGLE_SHEET_ID
 } = process.env;
 
-
 (async () => {
-  await discordNotificationService.connect();
+  await discordNotificationProvider.connect();
   try {
     const rssStore = await getSheetCellsValues<RssStoreType>(
       GOOGLE_SHEET_ID,
@@ -22,18 +21,17 @@ const {
     );
     const storeLastDates = await Promise.all(rssStore.map(async (rss) => {
       const {link, lastDate} = rss;
+
       const rssData = await getRssData(link);
       const newItems = findItemsAfterDate(rssData, new Date(lastDate));
+
       if (!newItems?.length) {
         return lastDate;
       }
+
       const newLastDate = rssData.pubDate;
-      await Promise.all(newItems.map(async (item) => {
-        await discordNotificationService.notify(`
-          ${item.title}
-          ${item.link}
-        `);
-      }));
+      await discordNotificationProvider.notify(newItems.map(item => `${item.title}\n${item.link}`));
+
       return newLastDate;
     }));
     await updateSheetCellsValues(
@@ -43,9 +41,8 @@ const {
       ['lastDate', ...storeLastDates]
     );
   } catch (err) {
-    console.error(`Exception: `, err.message);
     throw err;
   } finally {
-    await discordNotificationService.disconnect();
+    await discordNotificationProvider.disconnect();
   }
 })();
