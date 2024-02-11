@@ -51,7 +51,7 @@ export const updateSheetCellsValues = async (sheetId, tabName, range, data): Pro
     valueInputOption: 'USER_ENTERED',
     resource: {
       "majorDimension": "ROWS",
-      "values": data
+      "values": data.map((d: string) => [d]),
     },
   })
 }

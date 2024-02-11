@@ -25,6 +25,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "discord.js": "^14.14.1",
     "dotenv": "^16.4.2",
     "googleapis": "^133.0.0",
     "xml2json": "^0.12.0"
