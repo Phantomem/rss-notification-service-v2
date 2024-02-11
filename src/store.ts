@@ -27,7 +27,7 @@ export const parseSheet = <T>(arr: string[][]): T[] => {
       ,{} as T);
     return [...acc, obj];
   }, [] as T[])
-}
+};
 
 // @ts-ignore
 export const getSheetCellsValues = async <T>(sheetId, tabName, range): Promise<T[]> =>  {
