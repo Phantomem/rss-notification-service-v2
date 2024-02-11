@@ -16,7 +16,6 @@ export const discordNotificationService: NotificationServiceType = (() => {
     },
     notify: async (message: string) => {
       const user = await client.users.fetch(DISCORD_NOTIFICATION_USER as string);
-      console.log(user);
       await user.send(message);
     }
   }
